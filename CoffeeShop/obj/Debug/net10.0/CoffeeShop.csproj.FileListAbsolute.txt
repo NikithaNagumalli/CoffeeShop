@@ -12,3 +12,4 @@ C:\Users\Nikitha\RiderProjects\CoffeeShop\CoffeeShop\obj\Debug\net10.0\refint\Co
 C:\Users\Nikitha\RiderProjects\CoffeeShop\CoffeeShop\obj\Debug\net10.0\CoffeeShop.pdb
 C:\Users\Nikitha\RiderProjects\CoffeeShop\CoffeeShop\obj\Debug\net10.0\CoffeeShop.genruntimeconfig.cache
 C:\Users\Nikitha\RiderProjects\CoffeeShop\CoffeeShop\obj\Debug\net10.0\ref\CoffeeShop.dll
+C:\Users\Nikitha\RiderProjects\CoffeeShop\CoffeeShop\obj\Debug\net10.0\CoffeeShop.sourcelink.json
