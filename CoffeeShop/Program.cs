@@ -3,7 +3,8 @@ await coffeeShop.Customer();
 
 public class CoffeeShop
 {
-    public async Task<string> BrewEspresso(CancellationToken token)
+    TaskCompletionSource<string> _waitForSyrup = new TaskCompletionSource<string>();
+    private async Task<string> BrewEspresso(CancellationToken token)
     {
         Console.WriteLine("Brewing Espresso");
         await Task.Delay(2000, token);
@@ -11,26 +12,41 @@ public class CoffeeShop
         return "Made Espresso";
     }
     
-    public async Task<string> ToastPanini(CancellationToken token)
+    private async Task<string> ToastPanini(CancellationToken token)
     {
         Console.WriteLine("Toasting Panini");
         await Task.Delay(4000, token);
         Console.WriteLine("Toasted Panini");
         return "Made Panini";
     }
+
+    private async Task<String> MakeSyrupCoffee()
+    {
+        Console.WriteLine("Waiting for Syrup");
+        await _waitForSyrup.Task;
+        Console.WriteLine("Got Syrup");
+        return "Made Syrup Coffee";
+    }
+
+    public void SyrupDelivery()
+    {
+        _waitForSyrup.TrySetResult("syrup");
+    }
     
     public async Task Customer()
     {
-        CancellationTokenSource cts = new CancellationTokenSource(3000);
+        CancellationTokenSource cts = new CancellationTokenSource(5000);
         try
         {
             Task<string> task1 = BrewEspresso(cts.Token);
             Task<string> task2 = ToastPanini(cts.Token);
-
-            Console.WriteLine("doing other stuff");
-
+            Task<string> task3 = MakeSyrupCoffee();
+            Console.WriteLine("Cleaning Counters");
+            SyrupDelivery();
             string response1 = await task1;
             string response2 = await task2;
+            string response3 = await task3;
+            Console.WriteLine($"Responses: {response1}, {response2}, and {response3}");
         }
         catch (OperationCanceledException)
         {
